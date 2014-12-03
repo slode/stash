@@ -1,10 +1,9 @@
 #!/bin/bash
 # stash filename1 filename2
-# stash -f filename3
-# stash list => filename1 filename2 filename3
-# stash clear
+# stash-list => filename1 filename2 filename3
+# stash-clear
 
-set -x
+# set -x
 
 stash_file=~/.stash
 
