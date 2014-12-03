@@ -1,29 +1,31 @@
+#!/bin/bash
 # stash filename1 filename2
 # stash -f filename3
 # stash list => filename1 filename2 filename3
 # stash clear
 
-# set -x
+set -x
 
 stash_file=~/.stash
 
 function print_stash {
-  for i in $(cat $stash_file | sort | uniq); do echo -n "$i "; done
+  for i in $(< "$stash_file" sort | uniq); do echo -n "$i "; done
   echo ""
 }
 
 function clear_stash {
-  rm "$stash_file" && echo "Cleared stash." || die "No stash."
+  (rm "$stash_file" && echo "Cleared stash.") || die "No stash."
 }
 
 function add_to_stash {
   for i in "$@"; do
-    echo `readlink -f $i` >> $stash_file
-    echo "Stashed '`readlink -f $i`'."
+    full_path=$(readlink -f "$i")
+    echo "$full_path" >> $stash_file
+    echo "Stashed '$full_path'."
   done
 }
 
-case `basename "$0"` in
+case $(basename "$0") in
   stash-list)
     print_stash
     ;;
@@ -31,7 +33,7 @@ case `basename "$0"` in
     clear_stash
     ;;
   stash)
-    add_to_stash $@
+    add_to_stash "$@"
     ;;
 esac
 
