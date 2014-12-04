@@ -22,7 +22,7 @@ Examples
 
 There really is a broad range of simple and complex tasks that can be made
 easier using `stash`, but the below example reflects the original use-case, and
-I consider it sortof canonical.
+I consider it sort of canonical.
 
 ```
 $ cd /some/long/and/complex/path

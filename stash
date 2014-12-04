@@ -8,8 +8,7 @@
 stash_file=~/.stash
 
 function print_stash {
-  for i in $(< "$stash_file" sort | uniq); do echo -n "$i "; done
-  echo ""
+  while read i; do echo "$i "; done < <( sort "$stash_file" | uniq )
 }
 
 function clear_stash {
@@ -19,7 +18,7 @@ function clear_stash {
 function add_to_stash {
   for i in "$@"; do
     full_path=$(readlink -f "$i")
-    echo "$full_path" >> $stash_file
+    echo -e $full_path >> $stash_file
     echo "Stashed '$full_path'."
   done
 }
@@ -35,6 +34,3 @@ case $(basename "$0") in
     add_to_stash "$@"
     ;;
 esac
-
-
-
