@@ -1,3 +1,3 @@
 stash-clear
 stash file*
-file `stash-list`
+stash-list | xargs file
