@@ -40,6 +40,7 @@ func stash_list_files() {
   defer file.Close()
 
   if err != nil {
+    // Quietly return if there is no stash-file
     return
   }
 
