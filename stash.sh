@@ -8,11 +8,11 @@
 stash_file=~/.stash
 
 function print_stash {
-  while read i; do echo "$i "; done < <( sort "$stash_file" | uniq )
+  while read i; do echo "\"$i\""; done < <( sort "$stash_file" | uniq )
 }
 
 function clear_stash {
-  (rm "$stash_file" && echo "Cleared stash.") || die "No stash."
+  (rm "$stash_file" 2>&1 /dev/null  && echo "Cleared stash.") || (echo "No stash." && exit )
 }
 
 function add_to_stash {
@@ -31,6 +31,13 @@ case $(basename "$0") in
     clear_stash
     ;;
   stash)
-    add_to_stash "$@"
+    if [ $# -eq 0 ]; then
+      while read INPUT
+      do
+        add_to_stash "$INPUT"
+      done
+    else
+      add_to_stash "$@"
+    fi
     ;;
 esac

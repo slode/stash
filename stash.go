@@ -3,6 +3,7 @@ package main
 import (
   "os"
   "path"
+  "path/filepath"
   "fmt"
   "strings"
   "bufio"
@@ -21,7 +22,10 @@ func stash_new_file(s string) {
   defer f.Close()
   check(err)
 
-  _, err = f.WriteString(s + "\n")
+  absolute_path, err := filepath.Abs(s)
+  check(err)
+
+  _, err = f.WriteString(absolute_path + "\n")
   check(err)
 }
 
@@ -42,7 +46,7 @@ func stash_list_files() {
   scanner := bufio.NewScanner(file)
   scanner.Split(bufio.ScanLines)
   for scanner.Scan() {
-    fmt.Println(scanner.Text())
+    fmt.Printf("%q\n", scanner.Text())
   }
 }
 
