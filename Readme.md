@@ -17,7 +17,7 @@ repository and type.
 cp bin/* /my/bin/folder
 ```
 
-Features
+Examples
 ========
 
 ```
@@ -36,25 +36,5 @@ $ stash-list | cat
 $ stash-clear
 -> Cleared stash.
 ```
-  
-Examples
-========
 
-There really is a broad range of simple and complex tasks that can be made
-easier using `stash`, but the below example reflects the original use-case, and
-I consider it sort of canonical.
 
-```
-$ cd /some/long/and/complex/path
-$ stash file1 file2 file2
-$ cd /move/to/some/other/funky/path
-$ stash-list | xargs cp {} .
-$ stash-clear
-```
-
-The benefits might not be evident immediately from this example, but note that
-the actual `stash` and the subsequent `stash-list` might be run from two
-different terminals. So you suddenly avoid doing a lot of clunky copy-pasting.
-
-You could really substitute stash with a few trivial lines of bash, but stash
-can save you a few key-strokes.
