@@ -14,11 +14,29 @@ Installation is easy. Just install Linux, start a terminal, fetch the git
 repository and type.
 
 ```
-cp stash/stash /my/bin/folder
-ln -s /my/bin/folder/stash /my/bin/folder/stash-list
-ln -s /my/bin/folder/stash /my/bin/folder/stash-clear
+cp bin/* /my/bin/folder
 ```
 
+Features
+========
+
+```
+# Adds a file (or several) with full path to the stash-file
+$ stash <files>
+-> Stashed '/path/to/file'
+
+# Prints the stash-file with newline-separated, whitespace-escaped filenames
+$ stash-list
+-> ...
+
+$ stash-list | cat
+-> ...
+
+# Clear the stash
+$ stash-clear
+-> Cleared stash.
+```
+  
 Examples
 ========
 
