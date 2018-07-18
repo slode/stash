@@ -14,7 +14,7 @@ function print_stash {
 
 function run_stash {
   touch $stash_file
-  cat $stash_file | sort -u | tr '\n' '\0' | xargs -0 -n1 $@
+  cat $stash_file | sort -u | xargs -d "\n" -n1 $@
 }
 
 function clear_stash {
