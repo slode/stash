@@ -9,12 +9,22 @@ stash_file=~/.stash
 
 function print_stash {
   touch $stash_file
-  cat $stash_file | sort -u | sed 's/ /\\ /g '
+  cat $stash_file | sed 's/ /\\ /g '
 }
 
 function run_stash {
   touch $stash_file
-  cat $stash_file | sort -u | xargs -d "\n" -n1 $@
+  cat $stash_file | xargs -d "\n" -n1 $@
+}
+
+function pop_stash {
+  # for a nice mark/recall feature, add
+  # alias stash-go='cd $(stash-pop)'
+  # to your .bashrc
+  touch $stash_file
+  last_line=`tail -n1 $stash_file`
+  truncate -s -"$(echo $last_line | wc -c)" $stash_file
+  echo -n "$last_line"
 }
 
 function clear_stash {
@@ -34,7 +44,10 @@ case $(basename "$0") in
   stash-list)
     print_stash
     ;;
-  stash-run)
+  stash-pop)
+    pop_stash
+    ;;
+  stash-do)
     run_stash $@
     ;;
   stash-clear)
